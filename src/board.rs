@@ -45,25 +45,25 @@ impl Game {
   }
 
   pub fn get_board(&self) -> String {
-    // Intialise the top of our game board.
+    /// Intialise the top of our game board.
     let mut result = "  A B C \n".to_string();
     result.push_str(" ┌─┬─┬─┐\n");
 
-    // Use while loop here as step_by is still experimental.
+    /// Use while loop here as step_by is still experimental.
     let mut i = 0;
     while i < 8 {
-      // Add the the game board contents.
+      /// Add the the game board contents.
       let fmt = format!("{}│{:?}│{:?}│{:?}│\n", (i / 3)+1, self.board[i],
           self.board[i+1],
           self.board[i+2]);
       result.push_str(&fmt);
 
       if i < 6 {
-        // Create the middle two game board cross sections.
+        /// Create the middle two game board cross sections.
         result.push_str(" ├─┼─┼─┤\n");
       }
       else {
-        // Create the bottom of the game board.
+        /// Create the bottom of the game board.
         result.push_str(" └─┴─┴─┘\n");
       }
       i += 3;
@@ -119,7 +119,7 @@ impl Game {
 
   /// Checks to see if the game has ended.
   pub fn check(&mut self) -> bool {
-    // Check horizontal
+    /// Check horizontal winner
     let mut i = 0;
     while i < 9 {
       let first = self.board[i].clone();
@@ -133,7 +133,7 @@ impl Game {
       i += 3;
     }
 
-    // Check vertical
+    /// Check vertical winner
     i = 0;
     while i < 9 {
       let first = self.board[i].clone();
@@ -147,7 +147,7 @@ impl Game {
       i += 3;
     }
 
-    // Check diagonal
+    /// Check diagonal winner
     if self.board[0] == self.board[4] && self.board[0] == self.board[8] &&
        self.board[0] != BoardState::Empty {
       // https://github.com/rust-lang/rust/issues/6268 ?
@@ -163,7 +163,7 @@ impl Game {
       return true;
     }
 
-    // Check for tie.
+    /// Check for tie.
     for i in 0 .. 8 {
       if self.board[i] == BoardState::Empty {
         return false;
